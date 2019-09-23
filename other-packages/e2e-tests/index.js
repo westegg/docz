@@ -19,6 +19,7 @@ const e2eTestsPath = __dirname
 const paths = {
   doczCore: path.join(rootPath, 'core/docz-core'),
   docz: path.join(rootPath, 'core/docz'),
+  doczComponents: path.join(rootPath, 'core/docz-components'),
   doczGatsbyTheme: path.join(rootPath, 'core/gatsby-theme-docz'),
   // doczUtils: '../../core/docz-utils',
   // rehypeDocz: '../../core/rehype-docz',
@@ -87,24 +88,30 @@ const installNodeModules = async (packagePath, cacheKey = '') => {
 
 const setupLocalRegistry = async () => {
   await startLocalRegistry()
-  await updatePackageJson(paths.doczGatsbyTheme, packageJson => {
+
+  await updatePackageJson(paths.docz, pack => {
+    set(pack, 'dependencies.docz-components', 'ci')
+  })
+  await updatePackageJson(paths.doczGatsbyTheme, pack => {
+    set(pack, 'dependencies.docz-components', 'ci')
+  })
+
+  await updatePackageJson(paths.doczComponents, packageJson => {
     set(packageJson, 'version', `0.0.${Date.now()}`)
     return packageJson
   })
+  await updatePackageJson(paths.doczGatsbyTheme, packageJson => {
+    set(packageJson, 'version', `0.0.${Date.now()}`)
+    set(packageJson, 'dependencies.docz-components', 'ci')
+    return packageJson
+  })
   await updatePackageJson(paths.docz, packageJson => {
-    const version = get(packageJson, 'version')
-    const versionChunks = version.split('.')
-    versionChunks[versionChunks.length - 1] = Date.now()
-    newVersion = versionChunks.join('.')
-    set(packageJson, 'version', newVersion)
+    set(packageJson, 'version', `0.0.${Date.now()}`)
+    set(packageJson, 'dependencies.docz-components', 'ci')
     return packageJson
   })
   await updatePackageJson(paths.doczCore, packageJson => {
-    const version = get(packageJson, 'version')
-    const versionChunks = version.split('.')
-    versionChunks[versionChunks.length - 1] = Date.now()
-    newVersion = versionChunks.join('.')
-    set(packageJson, 'version', newVersion)
+    set(packageJson, 'version', `0.0.${Date.now()}`)
     return packageJson
   })
   // Generate the right .npmrc file in the folders to be published
@@ -126,6 +133,8 @@ const setupLocalRegistry = async () => {
   console.log('Published docz')
   await runCommand(`npm publish --tag ci`, { cwd: paths.doczCore })
   console.log('Published core')
+  await runCommand(`npm publish --tag ci`, { cwd: paths.doczComponents })
+  console.log('Published docz-components')
 }
 
 const runTests = async () => {
@@ -160,7 +169,7 @@ const runTests = async () => {
       if (get(pack, 'dependencies.docz-core', false)) {
         set(pack, 'dependencies.docz-core', 'ci')
       }
-
+      // set(pack, 'dependencies.docz-components', 'ci')
       return pack
     })
 
