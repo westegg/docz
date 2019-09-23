@@ -91,9 +91,11 @@ const setupLocalRegistry = async () => {
 
   await updatePackageJson(paths.docz, pack => {
     set(pack, 'dependencies.docz-components', 'ci')
+    return pack
   })
   await updatePackageJson(paths.doczGatsbyTheme, pack => {
     set(pack, 'dependencies.docz-components', 'ci')
+    return pack
   })
 
   await updatePackageJson(paths.doczComponents, packageJson => {
