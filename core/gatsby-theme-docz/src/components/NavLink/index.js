@@ -2,7 +2,7 @@
 import React from 'react'
 import { jsx } from 'theme-ui'
 import { Link } from 'gatsby'
-import { useDocs, useCurrentDoc } from 'docz'
+import { hooks } from 'docz-components'
 import { get } from 'lodash/fp'
 
 import * as styles from './styles'
@@ -14,6 +14,7 @@ const getHeadings = (route, docs) => {
 }
 
 export const NavLink = ({ item, ...props }) => {
+  const { useDocs, useCurrentDoc } = hooks
   const docs = useDocs()
   const to = item.route
   const headings = docs && getHeadings(to, docs)

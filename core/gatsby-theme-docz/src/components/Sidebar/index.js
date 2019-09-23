@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { Global } from '@emotion/core'
 import { jsx, Box } from 'theme-ui'
-import { useMenus } from 'docz'
+import { hooks } from 'docz-components'
 
 import * as styles from './styles'
 import { NavSearch } from '../NavSearch'
@@ -11,8 +11,8 @@ import { NavGroup } from '../NavGroup'
 
 export const Sidebar = React.forwardRef((props, ref) => {
   const [query, setQuery] = useState('')
+  const { useMenus } = hooks
   const menus = useMenus({ query })
-
   const handleChange = ev => {
     setQuery(ev.target.value)
   }

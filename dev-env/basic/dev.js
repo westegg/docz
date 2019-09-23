@@ -8,7 +8,8 @@ const rootPath = path.join(__dirname, '../../')
 const packages = [
   { name: 'docz-core', outputDir: 'dist' },
   { name: 'docz', outputDir: 'dist' },
-  { name: 'gatsby-theme-docz', outputDir: '' },
+  { name: 'gatsby-theme-docz', outputDir: 'src' },
+  { name: 'gatsby-theme-docz', outputDir: 'lib' },
   { name: 'docz-components', outputDir: 'dist' },
   { name: 'rehype-docz', outputDir: 'dist' },
   { name: 'remark-docz', outputDir: 'dist' },
@@ -39,7 +40,10 @@ export default timestamp
 
 const watchPackage = (name, outputDir) => {
   const sourcePath = path.join(rootPath, `core/${name}/${outputDir}`)
-  const destinationPath = path.join(__dirname, `node_modules/${name}/`)
+  const destinationPath = path.join(
+    __dirname,
+    `node_modules/${name}/${outputDir}`
+  )
   const sourceRootPath = path.join(rootPath, `core/${name}/`)
   const build = runCommand(`yarn run dev`, { cwd: sourceRootPath })
   const sync = cpx.watch(`${sourcePath}/*`, destinationPath)

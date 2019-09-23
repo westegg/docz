@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
-import { theme, useConfig, ComponentsProvider } from 'docz'
+import { hooks, createThemeProvider } from 'docz-components'
+
 import { Styled, ThemeProvider } from 'theme-ui'
 
 import defaultTheme from '~theme'
 import components from '~components'
 
 const Theme = ({ children }) => {
+  const { ComponentsProvider, useConfig } = hooks
   const config = useConfig()
   return (
     <ThemeProvider theme={config.themeConfig}>
@@ -17,7 +19,7 @@ const Theme = ({ children }) => {
   )
 }
 
-export const enhance = theme(
+export const enhance = createThemeProvider(
   defaultTheme,
   ({
     mode = 'light',

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { useComponents } from 'docz'
+import { hooks } from 'docz-components'
 import { MDXProvider } from '@mdx-js/react'
 import { propEq, get } from 'lodash/fp'
 
@@ -10,7 +10,7 @@ import Theme from '../index'
 import SEO from './Seo'
 
 const Route = ({ children, entry, ...defaultProps }) => {
-  const components = useComponents()
+  const components = hooks.useComponents()
   const NotFound = components.notFound
   const Layout = components.layout
   const props = { ...defaultProps, doc: entry }

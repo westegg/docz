@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from 'theme-ui'
 import { useState } from 'react'
-import { useConfig } from 'docz'
+import { hooks } from 'docz-components'
 import { LiveProvider, LiveError, LivePreview, LiveEditor } from 'react-live'
 import { merge } from 'lodash/fp'
 import { Resizable } from 're-resizable'
@@ -18,6 +18,7 @@ export const Playground = ({
   showLivePreview: userShowLivePreview = true,
   language,
 }) => {
+  const { useConfig } = hooks
   const {
     themeConfig: {
       showPlaygroundEditor,

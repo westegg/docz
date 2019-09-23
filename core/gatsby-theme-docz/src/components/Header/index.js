@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx, Box, Flex, useColorMode } from 'theme-ui'
-import { useConfig, useCurrentDoc } from 'docz'
+import { hooks } from 'docz-components'
 
 import * as styles from './styles'
 import { Edit, Sun, Github } from '../Icons'
 import { Logo } from '../Logo'
 
 export const Header = () => {
+  const { useConfig, useCurrentDoc } = hooks
   const config = useConfig()
   const { edit = true, ...doc } = useCurrentDoc()
   const [colorMode, setColorMode] = useColorMode()
