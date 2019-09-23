@@ -129,6 +129,10 @@ const setupLocalRegistry = async () => {
     `npx npm-auth-to-token@1.0.0 -u user -p password -e user@example.com -r ${LOCAL_REGISTRY}`,
     { cwd: paths.doczCore }
   )
+  await runCommand(
+    `npx npm-auth-to-token@1.0.0 -u user -p password -e user@example.com -r ${LOCAL_REGISTRY}`,
+    { cwd: paths.doczComponents }
+  )
   await runCommand(`npm publish --tag ci`, { cwd: paths.doczGatsbyTheme })
   console.log('Published gatsby')
   await runCommand(`npm publish --tag ci`, { cwd: paths.docz })
