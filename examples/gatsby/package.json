@@ -21,6 +21,7 @@
     "serve": "gatsby serve"
   },
   "dependencies": {
+    "docz": "next",
     "gatsby": "^2.13.73",
     "gatsby-plugin-offline": "^2.2.7",
     "gatsby-plugin-sharp": "^2.2.18",
